@@ -41,165 +41,195 @@ const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-navy-800 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl p-8 w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-xl">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-text-primary">
             {initialData ? 'Edit Contact' : 'Add New Contact'}
           </h2>
-          <button onClick={onClose} className="text-grey-400 hover:text-grey-300">
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary">
             <X size={24} />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Name *</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="input w-full"
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Basic Information */}
+          <div>
+            <h3 className="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wide">
+              Basic Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="input w-full"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Email *</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="input w-full"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="input w-full"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Company</label>
-              <input
-                type="text"
-                name="company"
-                value={formData.company}
-                onChange={handleChange}
-                className="input w-full"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Company</label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="input w-full"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Role</label>
-              <input
-                type="text"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="input w-full"
-              />
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Role</label>
+                <input
+                  type="text"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="input w-full"
+                />
+              </div>
             </div>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Contact Type</label>
-              <select
-                name="contact_type"
-                value={formData.contact_type}
-                onChange={handleChange}
-                className="select w-full"
-              >
-                <option value="defi_project">DeFi Project</option>
-                <option value="l1_l2_protocol">L1/L2 Protocol</option>
-                <option value="vc_fund">VC Fund</option>
-                <option value="exchange">Exchange</option>
-                <option value="institution">Institution</option>
-                <option value="other">Other</option>
-              </select>
+          {/* Classification */}
+          <div>
+            <h3 className="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wide">
+              Classification
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Contact Type</label>
+                <select
+                  name="contact_type"
+                  value={formData.contact_type}
+                  onChange={handleChange}
+                  className="select w-full"
+                >
+                  <option value="defi_project">DeFi Project</option>
+                  <option value="l1_l2_protocol">L1/L2 Protocol</option>
+                  <option value="vc_fund">VC Fund</option>
+                  <option value="exchange">Exchange</option>
+                  <option value="institution">Institution</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Status</label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="select w-full"
+                >
+                  <option value="hot">🔥 Hot</option>
+                  <option value="warm">🌤 Warm</option>
+                  <option value="cold">❄️ Cold</option>
+                  <option value="unqualified">Unqualified</option>
+                </select>
+              </div>
             </div>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Status</label>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="select w-full"
-              >
-                <option value="hot">🔥 Hot</option>
-                <option value="warm">🌤 Warm</option>
-                <option value="cold">❄️ Cold</option>
-                <option value="unqualified">Unqualified</option>
-              </select>
+          {/* Contact Details */}
+          <div>
+            <h3 className="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wide">
+              Contact Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="input w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Telegram</label>
+                <input
+                  type="text"
+                  name="telegram"
+                  value={formData.telegram}
+                  onChange={handleChange}
+                  placeholder="@username"
+                  className="input w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Twitter</label>
+                <input
+                  type="text"
+                  name="twitter"
+                  value={formData.twitter}
+                  onChange={handleChange}
+                  placeholder="@username"
+                  className="input w-full"
+                />
+              </div>
             </div>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="input w-full"
-              />
-            </div>
+          {/* Additional Information */}
+          <div>
+            <h3 className="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wide">
+              Additional Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Source</label>
+                <input
+                  type="text"
+                  name="source"
+                  value={formData.source}
+                  onChange={handleChange}
+                  placeholder="How did you meet?"
+                  className="input w-full"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Telegram</label>
-              <input
-                type="text"
-                name="telegram"
-                value={formData.telegram}
-                onChange={handleChange}
-                placeholder="@username"
-                className="input w-full"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="input w-full"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Twitter</label>
-              <input
-                type="text"
-                name="twitter"
-                value={formData.twitter}
-                onChange={handleChange}
-                placeholder="@username"
-                className="input w-full"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Source</label>
-              <input
-                type="text"
-                name="source"
-                value={formData.source}
-                onChange={handleChange}
-                placeholder="How did you meet?"
-                className="input w-full"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                className="input w-full"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Timezone</label>
-              <input
-                type="text"
-                name="timezone"
-                value={formData.timezone}
-                onChange={handleChange}
-                placeholder="UTC+0"
-                className="input w-full"
-              />
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Timezone</label>
+                <input
+                  type="text"
+                  name="timezone"
+                  value={formData.timezone}
+                  onChange={handleChange}
+                  placeholder="UTC+0"
+                  className="input w-full"
+                />
+              </div>
             </div>
           </div>
 
