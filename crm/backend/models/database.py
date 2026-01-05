@@ -44,9 +44,9 @@ class Contact(Base):
     __tablename__ = "contacts"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), nullable=False)
-    email = Column(String(255), unique=True, index=True)
-    company = Column(String(255))
+    company = Column(String(255), nullable=False)  # Required
+    name = Column(String(255))  # Optional
+    email = Column(String(255), index=True)  # Optional, removed unique constraint
     role = Column(String(255))
     phone = Column(String(50))
     telegram = Column(String(100))
