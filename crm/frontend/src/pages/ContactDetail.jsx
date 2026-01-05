@@ -4,6 +4,7 @@ import { contactsAPI } from '../services/api';
 import { ArrowLeft, Mail, Phone, MapPin, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import AIInsights from '../components/AIInsights';
 
 const ContactDetail = () => {
   const { id } = useParams();
@@ -35,25 +36,25 @@ const ContactDetail = () => {
   });
 
   if (isLoading) {
-    return <div className="text-center py-12 text-grey-400">Loading...</div>;
+    return <div className="text-center py-12 text-text-secondary">Loading...</div>;
   }
 
   if (!contact) {
-    return <div className="text-center py-12 text-grey-400">Contact not found</div>;
+    return <div className="text-center py-12 text-text-secondary">Contact not found</div>;
   }
 
   const getStatusColor = (status) => {
     const colors = {
-      hot: 'bg-red-500/20 text-red-400',
-      warm: 'bg-yellow-500/20 text-yellow-400',
-      cold: 'bg-blue-500/20 text-blue-400',
+      hot: 'bg-orange-100 text-orange-600 border border-orange-200',
+      warm: 'bg-yellow-100 text-yellow-600 border border-yellow-200',
+      cold: 'bg-blue-100 text-blue-600 border border-blue-200',
     };
     return colors[status] || colors.cold;
   };
 
   return (
     <div className="space-y-6">
-      <Link to="/contacts" className="flex items-center text-primary-400 hover:text-primary-300">
+      <Link to="/contacts" className="flex items-center text-primary-500 hover:text-primary-600">
         <ArrowLeft size={20} className="mr-2" />
         Back to Contacts
       </Link>
@@ -62,17 +63,17 @@ const ContactDetail = () => {
       <div className="card">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{contact.name}</h1>
-            <p className="text-xl text-grey-400 mt-1">{contact.role}</p>
+            <h1 className="text-3xl font-bold text-text-primary">{contact.name}</h1>
+            <p className="text-xl text-text-secondary mt-1">{contact.role}</p>
             {contact.company && (
-              <p className="text-lg text-grey-300 mt-1">{contact.company}</p>
+              <p className="text-lg text-text-secondary mt-1">{contact.company}</p>
             )}
 
-            <div className="flex items-center space-x-4 mt-4">
-              <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(contact.status)}`}>
+            <div className="flex items-center space-x-3 mt-4">
+              <span className={`px-3 py-1.5 rounded-full text-sm font-medium ${getStatusColor(contact.status)}`}>
                 {contact.status}
               </span>
-              <span className="px-3 py-1 bg-navy-700 rounded-full text-sm capitalize">
+              <span className="px-3 py-1.5 bg-gray-100 text-text-secondary rounded-full text-sm capitalize border border-gray-200">
                 {contact.contact_type.replace('_', ' ')}
               </span>
             </div>
@@ -80,11 +81,11 @@ const ContactDetail = () => {
         </div>
 
         {/* Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-6 border-t border-grey-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-6 border-t border-gray-200">
           {contact.email && (
             <div className="flex items-center space-x-3">
-              <Mail size={18} className="text-grey-400" />
-              <a href={`mailto:${contact.email}`} className="text-primary-400 hover:text-primary-300">
+              <Mail size={18} className="text-text-secondary" />
+              <a href={`mailto:${contact.email}`} className="text-primary-500 hover:text-primary-600">
                 {contact.email}
               </a>
             </div>
@@ -92,8 +93,8 @@ const ContactDetail = () => {
 
           {contact.phone && (
             <div className="flex items-center space-x-3">
-              <Phone size={18} className="text-grey-400" />
-              <a href={`tel:${contact.phone}`} className="text-grey-300">
+              <Phone size={18} className="text-text-secondary" />
+              <a href={`tel:${contact.phone}`} className="text-text-primary hover:text-primary-600">
                 {contact.phone}
               </a>
             </div>
@@ -101,15 +102,15 @@ const ContactDetail = () => {
 
           {contact.location && (
             <div className="flex items-center space-x-3">
-              <MapPin size={18} className="text-grey-400" />
-              <span className="text-grey-300">{contact.location}</span>
+              <MapPin size={18} className="text-text-secondary" />
+              <span className="text-text-primary">{contact.location}</span>
             </div>
           )}
 
           {contact.created_at && (
             <div className="flex items-center space-x-3">
-              <Calendar size={18} className="text-grey-400" />
-              <span className="text-grey-300">
+              <Calendar size={18} className="text-text-secondary" />
+              <span className="text-text-primary">
                 Added {format(new Date(contact.created_at), 'MMM d, yyyy')}
               </span>
             </div>
@@ -119,62 +120,60 @@ const ContactDetail = () => {
         {(contact.telegram || contact.twitter) && (
           <div className="flex items-center space-x-4 mt-4">
             {contact.telegram && (
-              <span className="text-sm text-grey-400">Telegram: {contact.telegram}</span>
+              <span className="text-sm text-text-secondary">Telegram: {contact.telegram}</span>
             )}
             {contact.twitter && (
-              <span className="text-sm text-grey-400">Twitter: {contact.twitter}</span>
+              <span className="text-sm text-text-secondary">Twitter: {contact.twitter}</span>
             )}
           </div>
         )}
       </div>
 
+      {/* AI Insights */}
+      <AIInsights contact={contact} deals={deals} />
+
       {/* Deals */}
       <div className="card">
-        <h2 className="text-2xl font-bold mb-4">Deals</h2>
+        <h2 className="text-2xl font-bold mb-4 text-text-primary">Deals</h2>
         {deals && deals.length > 0 ? (
           <div className="space-y-3">
             {deals.map((deal) => (
-              <div key={deal.id} className="bg-navy-700 p-4 rounded-lg">
+              <div key={deal.id} className="bg-background-100 p-4 rounded-lg border border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium">{deal.title}</h3>
-                    <p className="text-sm text-grey-400 capitalize mt-1">{deal.stage}</p>
+                    <h3 className="font-medium text-text-primary">{deal.title}</h3>
+                    <p className="text-sm text-text-secondary capitalize mt-1">{deal.stage}</p>
                   </div>
                   <div className="text-right">
-                    {deal.value && (
-                      <p className="text-primary-400 font-medium">
-                        ${(deal.value / 1000).toFixed(0)}K
-                      </p>
-                    )}
-                    <p className="text-sm text-grey-400">{deal.probability}%</p>
+                    <p className="text-sm text-text-secondary">{deal.probability}% confidence</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-grey-400 text-center py-8">No deals yet</p>
+          <p className="text-text-secondary text-center py-8">No deals yet</p>
         )}
       </div>
 
       {/* Recent Activities */}
       <div className="card">
-        <h2 className="text-2xl font-bold mb-4">Recent Activities</h2>
+        <h2 className="text-2xl font-bold mb-4 text-text-primary">Recent Activities</h2>
         {activities && activities.length > 0 ? (
           <div className="space-y-3">
             {activities.slice(0, 10).map((activity) => (
-              <div key={activity.id} className="bg-navy-700 p-4 rounded-lg">
+              <div key={activity.id} className="bg-background-100 p-4 rounded-lg border border-gray-200">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-medium capitalize">{activity.type}</p>
-                    <p className="text-sm text-grey-300 mt-1">
+                    <p className="font-medium capitalize text-text-primary">{activity.type}</p>
+                    <p className="text-sm text-text-secondary mt-1">
                       {activity.subject || 'No subject'}
                     </p>
                     {activity.description && (
-                      <p className="text-sm text-grey-400 mt-1">{activity.description}</p>
+                      <p className="text-sm text-text-muted mt-1">{activity.description}</p>
                     )}
                   </div>
-                  <div className="text-right text-sm text-grey-400">
+                  <div className="text-right text-sm text-text-muted">
                     {activity.scheduled_at &&
                       format(new Date(activity.scheduled_at), 'MMM d, h:mm a')}
                   </div>
@@ -183,7 +182,7 @@ const ContactDetail = () => {
             ))}
           </div>
         ) : (
-          <p className="text-grey-400 text-center py-8">No activities yet</p>
+          <p className="text-text-secondary text-center py-8">No activities yet</p>
         )}
       </div>
     </div>
