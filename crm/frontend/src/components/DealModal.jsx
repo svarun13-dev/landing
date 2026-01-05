@@ -7,7 +7,6 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
     title: deal?.title || '',
     description: deal?.description || '',
-    value: deal?.value || '',
     stage: deal?.stage || 'prospect',
     probability: deal?.probability || 0,
     expected_close_date: deal?.expected_close_date
@@ -28,7 +27,6 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
     mutationFn: (data) => {
       const payload = {
         ...data,
-        value: parseFloat(data.value) || 0,
         probability: parseInt(data.probability) || 0,
         contact_id: parseInt(data.contact_id),
         expected_close_date: data.expected_close_date || null,
@@ -61,20 +59,20 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-navy-800 rounded-lg p-6 w-full max-w-2xl">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-text-primary">
             {deal ? 'Edit Deal' : 'Add New Deal'}
           </h2>
-          <button onClick={onClose} className="text-grey-400 hover:text-grey-300">
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary">
             <X size={24} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Title *</label>
+            <label className="block text-sm font-medium text-text-secondary mb-2">Title *</label>
             <input
               type="text"
               name="title"
@@ -87,7 +85,7 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Description</label>
+            <label className="block text-sm font-medium text-text-secondary mb-2">Description</label>
             <textarea
               name="description"
               value={formData.description}
@@ -100,7 +98,7 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Contact *</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Contact *</label>
               <select
                 name="contact_id"
                 value={formData.contact_id}
@@ -111,14 +109,14 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
                 <option value="">Select contact...</option>
                 {contacts?.map((contact) => (
                   <option key={contact.id} value={contact.id}>
-                    {contact.name} - {contact.company}
+                    {contact.company} {contact.name ? `- ${contact.name}` : ''}
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Stage</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Stage</label>
               <select
                 name="stage"
                 value={formData.stage}
@@ -135,21 +133,8 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Value (USD)</label>
-              <input
-                type="number"
-                name="value"
-                value={formData.value}
-                onChange={handleChange}
-                className="input w-full"
-                placeholder="50000"
-                step="1000"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Probability (0-100%)
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Confidence (0-100%)
               </label>
               <input
                 type="range"
@@ -160,13 +145,13 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
                 max="100"
                 className="w-full"
               />
-              <div className="text-center text-sm text-grey-400 mt-1">
+              <div className="text-center text-sm text-text-muted mt-1">
                 {formData.probability}%
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">
                 Expected Close Date
               </label>
               <input
@@ -189,7 +174,7 @@ const DealModal = ({ deal = null, onClose, onSuccess }) => {
                       deleteMutation.mutate();
                     }
                   }}
-                  className="text-red-400 hover:text-red-300"
+                  className="text-red-600 hover:text-red-700 font-medium"
                 >
                   Delete Deal
                 </button>
