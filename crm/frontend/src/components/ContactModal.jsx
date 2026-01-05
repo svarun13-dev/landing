@@ -14,6 +14,9 @@ const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
     source: initialData?.source || '',
     location: initialData?.location || '',
     timezone: initialData?.timezone || '',
+    partnership_strategy: initialData?.partnership_strategy || '',
+    next_steps: initialData?.next_steps || '',
+    tags: initialData?.tags || '',
   });
 
   const mutation = useMutation({
@@ -189,6 +192,50 @@ const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
                   value={formData.timezone}
                   onChange={handleChange}
                   placeholder="UTC+0"
+                  className="input w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Tags</label>
+                <input
+                  type="text"
+                  name="tags"
+                  value={formData.tags}
+                  onChange={handleChange}
+                  placeholder="e.g., high-priority, follow-up, intro-needed"
+                  className="input w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Partnership Details */}
+          <div>
+            <h3 className="text-sm font-semibold text-text-primary mb-4 uppercase tracking-wide">
+              Partnership Strategy
+            </h3>
+            <div className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Engagement Flow</label>
+                <textarea
+                  name="partnership_strategy"
+                  value={formData.partnership_strategy}
+                  onChange={handleChange}
+                  rows="4"
+                  placeholder="Describe the tailored engagement approach for this partner..."
+                  className="input w-full resize-y"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Next Steps</label>
+                <input
+                  type="text"
+                  name="next_steps"
+                  value={formData.next_steps}
+                  onChange={handleChange}
+                  placeholder="What needs to happen next?"
                   className="input w-full"
                 />
               </div>

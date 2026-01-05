@@ -60,6 +60,11 @@ class Contact(Base):
     source = Column(String(255))  # How did we meet them?
     location = Column(String(255))
     timezone = Column(String(50))
+    tags = Column(String(500))  # Comma-separated tags
+
+    # Partnership strategy
+    partnership_strategy = Column(Text)  # Tailored engagement flow for each partner
+    next_steps = Column(String(500))  # What needs to happen next
 
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)

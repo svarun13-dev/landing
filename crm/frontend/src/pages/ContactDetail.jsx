@@ -129,6 +129,40 @@ const ContactDetail = () => {
         )}
       </div>
 
+      {/* Partnership Strategy */}
+      {(contact.partnership_strategy || contact.next_steps || contact.tags) && (
+        <div className="card">
+          <h2 className="text-2xl font-bold mb-4 text-text-primary">Partnership Strategy</h2>
+
+          {contact.tags && (
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-text-secondary mb-2 uppercase tracking-wide">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {contact.tags.split(',').map((tag, index) => (
+                  <span key={index} className="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-sm border border-primary-200">
+                    {tag.trim()}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {contact.partnership_strategy && (
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-text-secondary mb-2 uppercase tracking-wide">Engagement Flow</h3>
+              <p className="text-text-primary whitespace-pre-wrap">{contact.partnership_strategy}</p>
+            </div>
+          )}
+
+          {contact.next_steps && (
+            <div>
+              <h3 className="text-sm font-semibold text-text-secondary mb-2 uppercase tracking-wide">Next Steps</h3>
+              <p className="text-text-primary">{contact.next_steps}</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* AI Insights */}
       <AIInsights contact={contact} deals={deals} />
 

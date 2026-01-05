@@ -6,9 +6,9 @@ from models.database import ContactStatus, ContactType, DealStage, ActivityType
 
 # Contact Schemas
 class ContactBase(BaseModel):
-    name: str
-    email: EmailStr
-    company: Optional[str] = None
+    company: str
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
     role: Optional[str] = None
     phone: Optional[str] = None
     telegram: Optional[str] = None
@@ -18,6 +18,9 @@ class ContactBase(BaseModel):
     source: Optional[str] = None
     location: Optional[str] = None
     timezone: Optional[str] = None
+    tags: Optional[str] = None
+    partnership_strategy: Optional[str] = None
+    next_steps: Optional[str] = None
 
 
 class ContactCreate(ContactBase):
@@ -25,9 +28,9 @@ class ContactCreate(ContactBase):
 
 
 class ContactUpdate(BaseModel):
+    company: Optional[str] = None
     name: Optional[str] = None
     email: Optional[EmailStr] = None
-    company: Optional[str] = None
     role: Optional[str] = None
     phone: Optional[str] = None
     telegram: Optional[str] = None
@@ -37,6 +40,9 @@ class ContactUpdate(BaseModel):
     source: Optional[str] = None
     location: Optional[str] = None
     timezone: Optional[str] = None
+    tags: Optional[str] = None
+    partnership_strategy: Optional[str] = None
+    next_steps: Optional[str] = None
 
 
 class Contact(ContactBase):
