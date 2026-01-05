@@ -17,30 +17,31 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-navy-900">
+    <div className="flex h-screen bg-background-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-navy-800 border-r border-grey-700">
+      <aside className="w-64 bg-white border-r border-gray-200 shadow-sm">
         <div className="p-6">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-            Crypto BD CRM
+          <h1 className="text-xl font-bold text-text-primary">
+            Everclear BD CRM
           </h1>
+          <p className="text-xs text-text-muted mt-1">Business Development</p>
         </div>
 
-        <nav className="px-4 space-y-2">
+        <nav className="px-4 space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
                   isActive(item.path)
-                    ? 'bg-primary-500/20 text-primary-400'
-                    : 'text-grey-300 hover:bg-navy-700'
+                    ? 'bg-primary-50 text-primary-600 font-medium'
+                    : 'text-text-secondary hover:bg-gray-50'
                 }`}
               >
                 <Icon size={20} />
-                <span className="font-medium">{item.label}</span>
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -48,8 +49,8 @@ const Layout = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <div className="p-8">
+      <main className="flex-1 overflow-auto bg-background-100">
+        <div className="p-8 max-w-7xl">
           {children}
         </div>
       </main>
