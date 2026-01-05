@@ -6,12 +6,9 @@ import { X } from 'lucide-react';
 const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
   const [formData, setFormData] = useState({
     name: initialData?.name || '',
-    email: initialData?.email || '',
     company: initialData?.company || '',
     role: initialData?.role || '',
-    phone: initialData?.phone || '',
     telegram: initialData?.telegram || '',
-    twitter: initialData?.twitter || '',
     contact_type: initialData?.contact_type || 'other',
     status: initialData?.status || 'cold',
     source: initialData?.source || '',
@@ -60,35 +57,23 @@ const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="input w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Email *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="input w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Company</label>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Company *</label>
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
+                  onChange={handleChange}
+                  required
+                  className="input w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   className="input w-full"
                 />
@@ -154,34 +139,11 @@ const ContactModal = ({ onClose, onSuccess, initialData = null }) => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="input w-full"
-                />
-              </div>
-
-              <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">Telegram</label>
                 <input
                   type="text"
                   name="telegram"
                   value={formData.telegram}
-                  onChange={handleChange}
-                  placeholder="@username"
-                  className="input w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Twitter</label>
-                <input
-                  type="text"
-                  name="twitter"
-                  value={formData.twitter}
                   onChange={handleChange}
                   placeholder="@username"
                   className="input w-full"
