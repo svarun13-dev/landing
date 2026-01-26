@@ -1,92 +1,153 @@
-# 🧠 Generative AI Project Template
+# OnChain Broker
 
-A production-ready template to help you kickstart and organize your Generative AI projects with clarity and scalability in mind.  
-Designed to reduce chaos in early development and support long-term maintainability with proven structure and practices.
+A non-custodial aggregator for tokenized stocks and stock perpetuals. Think Interactive Brokers meets 1inch - best price routing across multiple tokenized equity providers and perp venues, unified in one clean interface.
 
-[![Follow @HeyNina101](https://img.shields.io/badge/Follow-%40HeyNina101-1da1f2?style=flat&logo=github)](https://github.com/HeyNina101)
+## Features
 
-[![Star this repo](https://img.shields.io/badge/⭐%20Star-generative__ai__project-ffcc00?style=flat&logo=github)](https://github.com/HeyNina101/generative_ai_project)
+### Asset Discovery & Price Aggregation
+- **Supported Spot Tokenized Stocks:**
+  - Ondo Finance (OUSG, USDY - Treasury products)
+  - Backed Finance (bCSPX, bNVDA, bCOIN, bIB01 on Base)
+  - Dinari (dAAPL, dGOOGL, dTSLA, dAMZN, dMSFT, dMETA on Arbitrum)
 
+- **Supported Perp Venues:**
+  - Hyperliquid (stock perps)
+  - Ostium (expandable)
 
----
+### Unified Dashboard
+- Connect wallet via RainbowKit
+- View all tokenized stock holdings across chains
+- Track perp positions
+- Real-time P&L tracking
+- Portfolio allocation visualization
 
-## 📋 Project Overview
+### Trade Execution
+- **Spot Trades:**
+  - Best price routing across venues
+  - Cross-chain support
+  - Fee comparison
 
-A production-ready template for building scalable Generative AI apps — structured, maintainable, and built on real-world best practices.
+- **Perp Trades:**
+  - Long/short interface
+  - Adjustable leverage (1-50x)
+  - Stop loss & take profit
+  - Position management
 
----
+## Tech Stack
 
-## 🔧 Key Components
+- **Frontend:** Next.js 14 + TypeScript + Tailwind CSS
+- **State Management:** Zustand
+- **Wallet:** wagmi + viem + RainbowKit
+- **Charts:** Recharts
+- **Data Fetching:** TanStack Query
 
+## Supported Chains
+
+- Ethereum Mainnet (Ondo)
+- Base (Backed)
+- Arbitrum (Dinari, Hyperliquid bridge)
+- Hyperliquid L1 (Perps)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Copy environment file
+cp .env.example .env.local
+
+# Add your WalletConnect Project ID to .env.local
+# Get one at: https://cloud.walletconnect.com/
 ```
 
-📁 config/ → YAML config for models, prompts, logging
-📁 data/ → Prompts, embeddings, and other dynamic content
-📁 examples/ → Minimal scripts to test key features
-📁 notebooks/ → Quick experiments and prototyping
-📁 tests/ → Unit, integration, and end-to-end tests
+### Development
 
-📁 src/ → The core engine — all logic lives here:
-├── agents/ → Agent classes: planner, executor, base agent
-├── memory/ → Short-term and long-term memory modules
-├── pipelines/ → Chat flows, doc processing, and task routing
-├── retrieval/ → Vector search and document lookup
-├── skills/ → Extra abilities: web search, code execution
-├── vision_audio/ → Multimodal processing: image and audio
-├── prompt_engineering/→ Prompt chaining, templates, few-shot logic
-├── llm/ → OpenAI, Anthropic, and custom LLM routing
-├── fallback/ → Recovery logic when LLMs fail
-├── guardrails/ → PII filters, output validation, safety checks
-├── handlers/ → Input/output processing and error management
-└── utils/ → Logging, caching, rate limiting, token counting
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+### Build
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
 
 ```
----
+/app
+  /dashboard        # Portfolio overview
+  /markets          # Browse all assets
+  /trade/[asset]    # Trading interface
+  /positions        # Perp position management
 
-## ⚡ Best Practices
+/components
+  /ui               # Reusable UI components
+  /portfolio        # Portfolio-specific components
+  /trading          # Trading-specific components
+  /charts           # Chart components
+  /layout           # Layout components (Navbar, Sidebar)
 
-- Track prompt versions and results  
-- Separate configs using YAML files  
-- Structure code by clear module boundaries  
-- Cache responses to reduce latency and cost  
-- Handle errors with custom exceptions  
-- Use notebooks for rapid testing and iteration  
-- Monitor API usage and set rate limits  
-- Keep code and docs in sync  
+/lib
+  /providers        # Protocol integrations (Ondo, Backed, Dinari, Hyperliquid)
+  /aggregator       # Price comparison & routing
+  /hooks            # Custom React hooks
+  /store            # Zustand stores
+  /utils            # Utility functions
 
----
+/config
+  chains.ts         # Chain configurations
+  assets.ts         # Asset definitions
+  addresses.ts      # Contract addresses
+```
 
-## 🧭 Getting Started
+## Environment Variables
 
-1. Clone the repo  
-2. Install via `requirements.txt`  
-3. Set up model configs  
-4. Check sample code  
-5. Begin in notebooks  
+```env
+# Required
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
 
----
+# Optional - for enhanced data
+NEXT_PUBLIC_COINGECKO_API_KEY=
+NEXT_PUBLIC_ONDO_API_KEY=
+NEXT_PUBLIC_DINARI_API_KEY=
 
-## 💡 Development Tips
+# Optional - custom RPC URLs
+NEXT_PUBLIC_ETHEREUM_RPC_URL=
+NEXT_PUBLIC_BASE_RPC_URL=
+NEXT_PUBLIC_ARBITRUM_RPC_URL=
+```
 
-- Use modular structure  
-- Test components early  
-- Track with version control  
-- Keep datasets fresh  
-- Monitor API usage  
+## MVP Success Criteria
 
----
+- [x] Connect wallet and see all tokenized stock holdings
+- [x] View prices for 10+ tokenized stocks across venues
+- [x] Execute a spot swap through best route
+- [x] Open/close a perp position on Hyperliquid
+- [x] See unified P&L across spot and perps
 
-## 📁 Core Files
+## Security Considerations
 
-- `requirements.txt` – Package dependencies  
-- `README.md` – Project overview and usage  
-- `Dockerfile` – Container build instructions  
+- Non-custodial - users retain control of their assets
+- No user data storage
+- All transactions require wallet signature
+- Price feeds from multiple sources
 
----
+## Disclaimer
 
-## 📄 License
+This is an MVP for demonstration purposes. Tokenized securities carry regulatory and counterparty risk. Perpetual positions can be liquidated. Trade responsibly.
 
-This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).  
-You are free to use, modify, and distribute with minimal restriction.
+## License
 
----
+MIT
