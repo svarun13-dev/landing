@@ -7,18 +7,7 @@ import { Sidebar } from '@/components/layout/Sidebar'
 export const metadata: Metadata = {
   title: 'OnChain Broker | Tokenized Stock Aggregator',
   description:
-    'Non-custodial aggregator for tokenized stocks and stock perps. Best price routing across multiple providers.',
-  keywords: [
-    'tokenized stocks',
-    'DeFi',
-    'perpetuals',
-    'trading',
-    'aggregator',
-    'Ondo',
-    'Backed',
-    'Dinari',
-    'Hyperliquid',
-  ],
+    'Non-custodial aggregator for tokenized stocks on Solana. Best price routing across xStocks, Ondo, and Securitize.',
 }
 
 export default function RootLayout({

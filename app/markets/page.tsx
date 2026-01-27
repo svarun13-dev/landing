@@ -3,11 +3,9 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight, ArrowDownRight, Search } from 'lucide-react'
-import { formatUSD, formatPercent, cn } from '@/lib/utils'
+import { formatUSD, cn } from '@/lib/utils'
 import { ASSETS, VENUE_META, type Asset } from '@/config/assets'
-import { CHAIN_NAMES, CHAIN_COLORS } from '@/config/chains'
 
-// Mock prices for each asset
 const MOCK_PRICES: Record<string, { price: number; change: number; volume: number }> = {
   AAPL:  { price: 178.72, change: 2.14, volume: 58200000 },
   NVDA:  { price: 875.38, change: 4.21, volume: 42100000 },
@@ -20,7 +18,6 @@ const MOCK_PRICES: Record<string, { price: number; change: number; volume: numbe
   SPY:   { price: 523.45, change: 0.87, volume: 72000000 },
   OUSG:  { price: 104.52, change: 0.02, volume: 5200000 },
   USDY:  { price: 1.06,   change: 0.01, volume: 3100000 },
-  BIB01: { price: 109.85, change: 0.03, volume: 2800000 },
 }
 
 type Filter = 'all' | 'stock' | 'etf' | 'treasury'
@@ -49,7 +46,6 @@ export default function MarketsPage() {
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-lg font-semibold text-foreground">Markets</h1>
-
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -62,7 +58,6 @@ export default function MarketsPage() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="flex gap-1">
         {filters.map((f) => (
           <button
@@ -80,17 +75,15 @@ export default function MarketsPage() {
         ))}
       </div>
 
-      {/* Table */}
       <div className="border border-border rounded-lg overflow-hidden bg-card">
-        <table>
+        <table className="w-full">
           <thead>
             <tr className="border-b border-border text-[11px] uppercase tracking-wider text-muted-foreground">
               <th className="text-left px-5 py-2.5 font-medium">Asset</th>
-              <th className="text-left px-5 py-2.5 font-medium">Available On</th>
               <th className="text-right px-5 py-2.5 font-medium">Price</th>
               <th className="text-right px-5 py-2.5 font-medium">24h</th>
               <th className="text-right px-5 py-2.5 font-medium">Volume</th>
-              <th className="text-right px-5 py-2.5 font-medium">Venues</th>
+              <th className="text-left px-5 py-2.5 font-medium">Venues</th>
               <th className="text-right px-5 py-2.5 font-medium"></th>
             </tr>
           </thead>
@@ -98,7 +91,6 @@ export default function MarketsPage() {
             {filtered.map((asset) => {
               const p = MOCK_PRICES[asset.ticker] || { price: 0, change: 0, volume: 0 }
               const isUp = p.change >= 0
-              const uniqueChains = Array.from(new Set(asset.venues.map((v) => v.chainId)))
               return (
                 <tr key={asset.id} className="border-b border-border/50 last:border-0 hover:bg-accent/30 transition-colors">
                   <td className="px-5 py-3.5">
@@ -112,19 +104,6 @@ export default function MarketsPage() {
                       </div>
                     </Link>
                   </td>
-                  <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-1.5">
-                      {uniqueChains.map((cid) => (
-                        <span
-                          key={cid}
-                          className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium bg-accent text-muted-foreground"
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: CHAIN_COLORS[cid] }} />
-                          {CHAIN_NAMES[cid]}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
                   <td className="px-5 py-3.5 text-right text-[13px] text-foreground tabular-nums">
                     {formatUSD(p.price)}
                   </td>
@@ -137,8 +116,17 @@ export default function MarketsPage() {
                   <td className="px-5 py-3.5 text-right text-[12px] text-muted-foreground tabular-nums">
                     ${(p.volume / 1e6).toFixed(1)}M
                   </td>
-                  <td className="px-5 py-3.5 text-right text-[12px] text-muted-foreground tabular-nums">
-                    {asset.venues.length}
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center gap-1.5">
+                      {asset.venues.map((v) => (
+                        <span
+                          key={v.name}
+                          className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-accent text-muted-foreground"
+                        >
+                          {VENUE_META[v.name]?.label}
+                        </span>
+                      ))}
+                    </div>
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     <Link

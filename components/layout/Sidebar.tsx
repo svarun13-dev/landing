@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, BarChart3, ArrowRightLeft } from 'lucide-react'
+import { LayoutDashboard, BarChart3, ArrowRightLeft, Newspaper } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const nav = [
   { name: 'Portfolio', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Markets', href: '/markets', icon: BarChart3 },
   { name: 'Trade', href: '/trade', icon: ArrowRightLeft },
+  { name: 'News', href: '/news', icon: Newspaper },
 ]
 
 export function Sidebar() {

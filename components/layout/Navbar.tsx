@@ -1,12 +1,16 @@
 'use client'
 
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import dynamic from 'next/dynamic'
 import { Search } from 'lucide-react'
+
+const WalletMultiButton = dynamic(
+  () => import('@solana/wallet-adapter-react-ui').then((m) => m.WalletMultiButton),
+  { ssr: false }
+)
 
 export function Navbar() {
   return (
     <header className="flex h-14 items-center justify-between border-b border-border bg-card px-6">
-      {/* Search */}
       <div className="relative hidden md:block">
         <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
         <input
@@ -16,12 +20,13 @@ export function Navbar() {
         />
       </div>
 
-      {/* Wallet */}
-      <ConnectButton
-        chainStatus="icon"
-        showBalance={{ smallScreen: false, largeScreen: true }}
-        accountStatus={{ smallScreen: 'avatar', largeScreen: 'full' }}
-      />
+      <WalletMultiButton style={{
+        backgroundColor: 'var(--secondary)',
+        height: '36px',
+        fontSize: '13px',
+        borderRadius: '6px',
+        fontFamily: 'inherit',
+      }} />
     </header>
   )
 }
