@@ -1,5 +1,5 @@
 import { providers, type PriceData, type ProviderQuote, type QuoteParams } from '../providers'
-import { ALL_ASSETS, type TokenizedAsset } from '@/config/assets'
+import { ALL_ASSETS } from '@/config/assets'
 
 export interface AggregatedPrice {
   symbol: string

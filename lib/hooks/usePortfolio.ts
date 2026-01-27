@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useAccount, useBalance } from 'wagmi'
 import { usePortfolioStore } from '../store'
 import { SUPPORTED_CHAINS } from '@/config/chains'
-import { TOKENIZED_ASSETS } from '@/config/assets'
+import { ASSETS } from '@/config/assets'
 import type { TokenBalance } from '../providers/types'
 import { formatUnits } from 'viem'
 
@@ -106,7 +106,7 @@ export function useTokenBalance(tokenAddress: string, chainId: number) {
   const balance = useBalance({
     address,
     token: tokenAddress as `0x${string}`,
-    chainId,
+    chainId: chainId as 1 | 8453 | 42161,
   })
 
   return {
@@ -121,7 +121,7 @@ export function useNativeBalance(chainId: number) {
 
   const balance = useBalance({
     address,
-    chainId,
+    chainId: chainId as 1 | 8453 | 42161,
   })
 
   return {
